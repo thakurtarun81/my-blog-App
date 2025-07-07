@@ -1,0 +1,47 @@
+/* Header.css */
+
+/* Container for the whole header */
+.header-container {
+  background-color: #ffffff;
+  background-color: #007bff;
+  /* padding: 15px 300px; */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  top: 0;
+}
+
+.header.list {
+  list-style: none;
+  display: flex;
+  gap: 400px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.header.list li {
+  display: inline-block;
+}
+
+.header.list a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.header.list a:hover {
+  color: #007bff;
+}
+
+@media (max-width: 768px) {
+  .header.list {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+
+  .header-container {
+    padding: 20px;
+  }
+}

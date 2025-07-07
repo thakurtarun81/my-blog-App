@@ -1,0 +1,10 @@
+img {
+  display: block;
+  display: flex;
+  max-width: 1000px;  /* or any size you want */
+  width: 100%;       /* makes it responsive within max-width */
+  height: auto;
+  margin: 40px auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
