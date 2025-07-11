@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { TaskContext } from "../../myContext";
+import Back from "../Back";
 
 const BlogView = () => {
   const { id } = useParams();
@@ -12,10 +13,16 @@ const BlogView = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8 text-center">
+    <div className="min-h-screen bg-gray-100 p-8 text-left">
+      <div>
+        <Back />
+      </div>
       <h1 className="text-3xl font-bold text-indigo-900">{blog.title}</h1>
       <h2 className="text-xl text-indigo-700 mt-2">{blog.subtitle}</h2>
-      <p className="mt-4 text-gray-800 max-w-3xl mx-auto">{blog.about}</p>
+      <p className="mt-4 text-gray-800 max-w-3xl ">{blog.about}</p>
+      <p className="mt-4 text-gray-800 max-w-3xl text-left">
+        {"created by: " + blog.name}
+      </p>
     </div>
   );
 };

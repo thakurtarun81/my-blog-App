@@ -1,10 +1,60 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { TaskContext } from "../../myContext";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import Loginschema from "../../validations/loginform";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const { users, setUsers } = useContext(TaskContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getuser();
+  }, []);
+
+  const getuser = () => {
+    const existuser = localStorage.getItem("user");
+    console.log(existuser);
+    if (existuser) {
+      navigate("/");
+    }
+  };
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm({
+    resolver: yupResolver(Loginschema),
+    defaultValues: { email: "", password: "" },
+  });
+
+  const onHandleSubmit = (data) => {
+    const matchedUser = users.find((user) => user.email === data.email);
+    if (!matchedUser) {
+      toast.error("User not found.");
+      return;
+    }
+
+    if (matchedUser.password !== data.password) {
+      toast.error("Incorrect password");
+      return;
+    } else {
+      localStorage.setItem("user", JSON.stringify(matchedUser));
+      toast.success("Login successfully");
+      navigate("/");
+    }
+  };
+
   return (
     <div>
+      <div>
+        <ToastContainer />
+      </div>
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -18,7 +68,7 @@ const Login = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form onSubmit={handleSubmit(onHandleSubmit)} className="space-y-6">
             <div>
               <label
                 htmlFor="email"
@@ -32,20 +82,37 @@ const Login = () => {
                   name="email"
                   id="email"
                   autoComplete="email"
-                  required
+                  {...register("email")}
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 />
+                <span style={{ color: "red", fontSize: "0.9rem" }}>
+                  {errors?.email?.message}
+                </span>
               </div>
             </div>
 
             <div>
               <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm/6 font-medium text-gray-900"
-                >
-                  Password
-                </label>
+                <div className="mt-2">
+                  <label
+                    htmlFor="password"
+                    className="block text-sm/6 font-medium text-gray-900"
+                  >
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    {...register("password")}
+                    id="password"
+                    autoComplete="current-password"
+                    required
+                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  />
+                </div>
+                <span style={{ color: "red", fontSize: "0.9rem" }}>
+                  {errors?.password?.message}
+                </span>
                 <div className="text-sm">
                   <a
                     href="#"
@@ -54,16 +121,6 @@ const Login = () => {
                     Forgot password?
                   </a>
                 </div>
-              </div>
-              <div className="mt-2">
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  autoComplete="current-password"
-                  required
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                />
               </div>
             </div>
 
@@ -84,7 +141,6 @@ const Login = () => {
               Sign up
             </button>
           </div>
-
         </div>
       </div>
     </div>

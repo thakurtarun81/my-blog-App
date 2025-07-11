@@ -23,6 +23,7 @@ const BlogCard = () => {
       subtitle: task.subtitle,
       about: task.about,
     });
+    navigate(`/edit-blog/${task.id}`);
   };
 
   const handleInputChange = (e) => {
@@ -43,9 +44,9 @@ const BlogCard = () => {
 
   return (
     <div className="blog-head w-full mt-6">
-      <div className="text-white space-y-4 w-full text-center flex gap-4 flex-wrap">
+      <div className="text-white space-y-5 w-full text-center flex gap-5 flex-wrap">
         {tasks && tasks.length > 0 ? (
-          tasks.map((task) => (
+          tasks.slice(0, 3).map((task) => (
             <li
               key={task.id}
               className="bg-indigo-50 rounded-md p-1  shadow-sm text-center w-1/4"

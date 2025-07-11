@@ -32,7 +32,7 @@ const Signup = () => {
       email: data?.email,
       password: data?.password,
     };
-    localStorage.setItem("user", newUser);
+    localStorage.setItem("user", JSON.stringify(newUser));
     setUsers([...users, newUser]);
     toast.success("Signup successfully");
     navigate("/");

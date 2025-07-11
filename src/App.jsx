@@ -40,6 +40,15 @@ const router = createBrowserRouter([
       </>
     ),
   },
+    {
+    path: "/edit-blog/:id",
+    element: (
+      <>
+        <Header />
+        <Blog />
+      </>
+    ),
+  },
   {
     path: "/view-blog/:id",
     element: (

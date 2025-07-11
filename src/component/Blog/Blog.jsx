@@ -4,17 +4,21 @@ import { useForm } from "react-hook-form";
 import BlogSchema from "../../validations/createblog";
 import { TaskContext } from "../../myContext";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const Blog = () => {
   // const [tasks, setTasks] = useState([]);
+  const { id } = useParams();
   const { tasks, setTasks } = useContext(TaskContext);
-  console.log(tasks);
   const navigate = useNavigate();
 
   useEffect(() => {
     gettoken();
   }, []);
 
+  useEffect(() => {
+    findData();
+  }, []);
   const {
     register,
     formState: { errors },
@@ -22,10 +26,30 @@ const Blog = () => {
     reset,
   } = useForm({ resolver: yupResolver(BlogSchema) });
 
+  const findData = () => {
+    const userdata = tasks.find((item) => item.id == id);
+    reset({
+      title: userdata?.title,
+      subtitle: userdata?.subtitle,
+      about: userdata?.about,
+      name: userdata?.name,
+    });
+  };
+  const handleEditTask = (data) => {
+    const newData = tasks.map((b) => {
+      return b.id == id ? { ...data, id: Number(id) } : b;
+    });
+    setTasks(newData);
+    navigate(-1);
+  };
+
   const handleAddTask = (data) => {
+    const UserData = localStorage.getItem("user");
+
     const newBlog = {
       id: Date.now(),
       ...data,
+      name: JSON.parse(UserData).fullName,
     };
 
     setTasks([newBlog, ...tasks]);
@@ -43,17 +67,19 @@ const Blog = () => {
     if (!token) {
       navigate("/login");
     }
-    console.log(token);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-yellow-100 p-8">
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
         <h2 className="text-3xl font-bold mb-6 text-indigo-800 text-center">
-          Create Blog
+          {id ? "Edit Blog" : "Create Blog"}
         </h2>
 
-        <form onSubmit={handleSubmit(handleAddTask)} className="space-y-4">
+        <form
+          onSubmit={handleSubmit(id ? handleEditTask : handleAddTask)}
+          className="space-y-4"
+        >
           <input
             type="text"
             // value={title}
@@ -91,6 +117,7 @@ const Blog = () => {
           <span style={{ color: "red", fontSize: "0.9rem" }}>
             {errors?.about?.message}
           </span>
+          {name}
           <div className="flex gap-2">
             <button
               onClick={() => navigate(-1)}
@@ -102,7 +129,7 @@ const Blog = () => {
               type="submit"
               className="w-full bg-indigo-400 hover:text-red-800 bg-indigo-600font-semibold py-2 rounded-md transition-colors duration-300"
             >
-              Add Blog
+              Save
             </button>
           </div>
         </form>
