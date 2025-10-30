@@ -7,7 +7,7 @@ const testimonials = [
     comment:
       "This blog consistently provides insightful articles that help me stay current in the tech world. Highly recommend!",
     
-    avatar: "https://randomuser.me/api/portraits/men/46.jpg",
+    avatar: ""// "https://randomuser.me/api/portraits/men/46.jpg",
     
   },
   {

@@ -108,7 +108,7 @@ const Home = () => {
       {/* Testimonial Card 1 */}
       <div className="bg-white rounded-xl shadow-md p-6 text-center">
         <img
-          src="https://i.pravatar.cc/100?img=12"
+          src="https://i.pravatar.cc/100?img=20"
           alt="User"
           className="w-20 h-20 rounded-full mx-auto mb-4"
         />
@@ -122,7 +122,8 @@ const Home = () => {
       {/* Testimonial Card 2 */}
       <div className="bg-white rounded-xl shadow-md p-6 text-center">
         <img
-          src="https://i.pravatar.cc/100?img=20"
+          
+          src="https://i.pravatar.cc/100?img=12"
           alt="User"
           className="w-20 h-20 rounded-full mx-auto mb-4"
         />
