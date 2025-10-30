@@ -6,14 +6,17 @@ const testimonials = [
     role: "Tech Blogger",
     comment:
       "This blog consistently provides insightful articles that help me stay current in the tech world. Highly recommend!",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+    
+    avatar: "https://randomuser.me/api/portraits/men/46.jpg",
+    
   },
   {
     name: "John Smith",
     role: "Developer & Reader",
     comment:
       "The content here is top-notch. Well-researched, well-written, and always relevant. A must-follow for any developer.",
-    avatar: "https://randomuser.me/api/portraits/men/46.jpg",
+   avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+   
   },
   {
     name: "Emily Chan",

@@ -12,10 +12,6 @@ const BlogCard = () => {
   });
   const navigate = useNavigate();
 
-  const handleDeleteTask = (idToDelete) => {
-    setTasks(tasks.filter((task) => task.id !== idToDelete));
-  };
-
   const handleEditClick = (task) => {
     setEditTaskId(task.id);
     setEditFormData({
@@ -26,116 +22,56 @@ const BlogCard = () => {
     navigate(`/edit-blog/${task.id}`);
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setEditFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSaveClick = (id) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === id ? { ...task, ...editFormData } : task
-    );
-    setTasks(updatedTasks);
-    setEditTaskId(null);
-  };
   const handleView = (id) => {
     navigate(`view-blog/${id}`);
   };
 
   return (
-    <div className="blog-head w-full mt-6">
-      <div className="text-white space-y-5 w-full text-center flex gap-5 flex-wrap">
+    <div className="w-full mt-8 px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {tasks && tasks.length > 0 ? (
           tasks.slice(0, 3).map((task) => (
-            <li
+            <div
               key={task.id}
-              className="bg-indigo-50 rounded-md p-1  shadow-sm text-center w-1/4"
+              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
             >
-              {editTaskId === task.id ? (
-                <div className="flex flex-col space-y-2">
-                  <input
-                    type="text"
-                    name="title"
-                    value={editFormData.title}
-                    onChange={handleInputChange}
-                    className="p-2 border rounded"
-                    placeholder="Title"
-                  />
-                  <input
-                    type="text"
-                    name="subtitle"
-                    value={editFormData.subtitle}
-                    onChange={handleInputChange}
-                    className="p-2 border rounded"
-                    placeholder="Subtitle"
-                  />
-                  <textarea
-                    name="about"
-                    value={editFormData.about}
-                    onChange={handleInputChange}
-                    className="p-2 border rounded"
-                    placeholder="About"
-                  />
-                  <div className="flex justify-end space-x-2">
-                    <button
-                      onClick={() => handleSaveClick(task.id)}
-                      className="text-green-600 hover:text-green-800 font-semibold text-sm"
-                    >
-                      Save
-                    </button>
-                    <button
-                      onClick={() => setEditTaskId(null)}
-                      className="text-black-600 hover:text-gray-800 font-semibold text-sm"
-                    >
-                      Cancel
-                    </button>
-                  </div>
+              <div className="p-5 flex flex-col justify-between h-full">
+                <div>
+                  <h3 className="text-xl font-bold text-indigo-800 mb-1">
+                    {task.title}
+                  </h3>
+                  <h4 className="text-md font-semibold text-indigo-600 mb-2">
+                    {task.subtitle}
+                  </h4>
+                  <p className="text-gray-700 text-sm line-clamp-4">
+                    {task.about}
+                  </p>
                 </div>
-              ) : (
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h5 className="text-lg font-bold text-indigo-900">
-                      {task.title}
-                    </h5>
-                    <h6 className="font-semibold text-indigo-700">
-                      {task.subtitle}
-                    </h6>
-                    <p className="mt-1 text-gray-700">{task.about}</p>
-                  </div>
-                  <div className="flex flex-col space-y-2">
-                    <button
-                      onClick={() => handleDeleteTask(task.id)}
-                      className="text-red-600 hover:text-red-800 font-semibold text-sm"
-                    >
-                      Delete
-                    </button>
-                    <button
-                      onClick={() => handleEditClick(task)}
-                      className="text-yellow-600 hover:text-yellow-800 font-semibold text-sm"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleView(task.id)}
-                      className="text-indigo-600 hover:text-indigo-800 font-semibold text-sm"
-                    >
-                      View
-                    </button>
-                  </div>
+                <div className="mt-4 text-right">
+                  <button
+                    onClick={() => handleView(task.id)}
+                    className="bg-indigo-600 px-4 py-1 rounded-full text-sm hover:bg-indigo-700 transition-colors"
+                  >
+                    View 
+                  </button>
                 </div>
-              )}
-            </li>
+              </div>
+            </div>
           ))
         ) : (
-          <p>No blogs</p>
+          <p className="text-white">No blogs</p>
         )}
-        <button
-          onClick={() => navigate("/view-all")}
-          className="bg-blue-300 text-black px-4 py-2 h-10 mb-4 mt-21 rounded hover:bg-blue-200"
-        >
-          View all
-        </button>
       </div>
+
+        <div className="flex justify-center mt-6">
+          <button
+            onClick={() => navigate("/view-all")}
+            className="bg-blue-600 hover:bg-blue-500  font-medium px-6 py-2 rounded-lg transition-colors"
+          >
+            View All 
+          </button>
+        </div>
+
     </div>
   );
 };

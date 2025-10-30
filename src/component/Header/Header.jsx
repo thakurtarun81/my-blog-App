@@ -7,6 +7,7 @@ const Header = () => {
     localStorage.removeItem("user");
     setUserdata(undefined);
   };
+  
   return (
     <header className="bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg">
       <nav className="max-w-8xl mx-auto px-3 py-3 flex items-center justify-between">

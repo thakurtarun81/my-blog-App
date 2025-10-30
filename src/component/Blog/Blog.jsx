@@ -117,7 +117,6 @@ const Blog = () => {
           <span style={{ color: "red", fontSize: "0.9rem" }}>
             {errors?.about?.message}
           </span>
-          {name}
           <div className="flex gap-2">
             <button
               onClick={() => navigate(-1)}

@@ -6,7 +6,7 @@ const ViewAll = () => {
   const { tasks } = useContext(TaskContext);
 
   if (!tasks || tasks.length === 0) {
-    return <p className="text-center text-white">No blogs found.</p>;
+    return <p className="text-center text-white"><h1>No blogs found.</h1></p>;
   }
 
   return (
